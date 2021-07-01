@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <!--script src="js/login.js"></script-->
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <div >
+        <h1>JSON Custom Mapping</h1>
+        <a href="view.html">VIEW</a>
+
+    </div>
+
+    <div class="card login jumbotron">
+        <div class="card-columns d-flex justify-content-center">
+        <div class="container login" style="float:left">
+            <div style="margin-top:5px">
+            <img src="https://www.sixfifty.com/wp-content/uploads/2021/02/GDPR-Documents_What-GDPR-Documents.png" alt="Avatar" style="width:20rem;height:auto;margin-left: 20px">
+
+            <h4 style="font-size:25px"><b align="center" justify="center" style="text-align:center;">Login</b></h4>
+            <p>Change your API's according to your requirements!!!</p>
+            <form method="post" >
+                <label for ="username">USERNAME :</label>
+                <label><input type="text" name="username" id="username" placeholder="username" onFocus="true" required></label></br>
+                <label for="password">PASSWORD :</label>
+                <label><input type="password" name="password" minLength="8" id="password" required></label></br>
+                <label style="width:200px"><p style="font-size:0.75rem;color:red;text-align:right">*minimum 8 characters,Case Sensitive</p></label></br>
+                <label style="width:200px;"><button type="submit" class="btn" onclick="validate()">LOGIN</button></label>
+                <label><p id="demo"></p></label>
+            </form>
+            </div>
+        </div>
+        <div class="container right" style="float:right">
+            <div id ="signup">
+
+            <h4 style="font-size:30px"><b>Sign Up</b></h4>
+            <p>Are you not a part of us.Don't Worry!!!</p>
+            <form method="post" >
+                <label for="Email">EMAIL :</label>
+                <label><input type="email"  id="Email"placeholder="email" onFocus="true" required> </label></br>
+                <label for="signupUser">USERNAME :</label>
+                <label><input type="text" id="signupUser"placeholder="username" required></label></br>
+                <label for="signupPassword">PASSWORD :</label>
+                <label><input type="password" id="signupPassword" minLength="8" required></label></br>
+                <label style="width:200px"><p style="font-size:0.75rem;color:ivory;text-align:right">*minimum 8 characters,Case Sensitive</p></label></br>
+                <label for="phone">PHONE : </label>
+                <label ><input type="phone" id="phone" placeholder="Phone Number" pattern="[6-9][0-9]{9}" required></label></br>
+                <label style="width:200px;"><button type="submit" onclick="addUserSignUp()">JOIN US</button></label>
+            </form>
+            </div>
+        </div>
+        </div>
+    </div>
+</body>
+
+<script type="text/javascript">
+    function display(data){
+        alert(data);
+    }
+    function validate() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        console.log(username + " " + password);
+        var data_raw= {"userid":null,
+                "userName":username,
+                "password":password}
+
+        let xhr = new XMLHttpRequest();
+        const url='http://localhost:9090/user/password/';
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && xhr.status == 200) {
+                console.log(xhr.responseText);
+
+            }
+        };
+        var data = JSON.stringify(data_raw);
+
+        alert(data);
+
+        console.log(data);
+
+        xhr.send(data);
+        console.log(xhr.getAllResponseHeaders());
+        return 'updatemapping.html';
+
+    }
+    function addUserSignUp() {
+        var username = document.getElementById("signupUser").value;
+        var password = document.getElementById("signupPassword").value;
+        var email = document.getElementById("Email").value;
+        var phone = document.getElementById("Phone").value;
+        console.log(username + " " + password);
+        var data_raw= {
+            "userName":username,
+            "phoneNo":phone,
+            "email":email,
+            "password":password}
+
+        let xhr = new XMLHttpRequest();
+        let url='http://localhost:9090/user/adduser/';
+        xhr.open("POST", url, true);
+        xhr.setRequestHeader("Content-type", "application/json");
+        var data = JSON.stringify(data_raw);
+        console.log(data);
+        xhr.send(data_raw);
+    }
+</script>
+</html>

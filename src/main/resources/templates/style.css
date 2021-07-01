@@ -1,0 +1,62 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap');
+body{
+    background-image:url("https://d2slcw3kip6qmk.cloudfront.net/marketing/techblog/json-bad-for-cfg-post-header@2x.png");
+}
+.table{
+    width:100%;
+    background-color: ivory;
+    text-align: center;
+    table-layout: fixed;
+}
+.card.login {
+    margin-top: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 100%;
+}
+.container:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+.btn{
+    size: 1rem;
+}
+.container {
+    background-color: aliceblue;
+    padding: 2px 16px;
+    margin-top: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+
+}
+.container.login{
+    margin-left: 20px;
+    width: 500px;
+    height: 500px;
+}
+.container.right{
+    color:white;
+    background-image: url("https://tinyurl.com/4mnda8pv");
+    margin-right: 50px;
+    width: 50%;
+    height: 500px;
+}
+h1{
+    text-align: center;
+    color: white;
+    text-overline-color: black;
+    background-color: deeppink;
+    border: 1px solid red;
+}
+
+label{
+    cursor: pointer;
+    display: inline-block;
+    padding: 3px 6px;
+    text-align: right;
+    width: 100px;
+    vertical-align: top;
+}
+div{
+    font-family:'Source Sans Pro'
+}

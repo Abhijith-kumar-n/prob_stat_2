@@ -1,0 +1,99 @@
+<html xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<head>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!--script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script-->
+    <title>Customize Mapping</title>
+    <style>
+
+        .getdata{
+
+            background-color: aliceblue;
+            padding: 2px 16px;
+            margin-top: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 500px;
+            height: 50%;
+            float: left;
+        }
+        .readMapping{
+
+            background-color: aliceblue;
+            padding: 2px 16px;
+            margin-top: 5px;
+            box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+            transition: 0.3s;
+            width: 500px;
+            height: 490px;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="background-color:darkblue">
+    <div class="container-fluid" >
+        <a class="navbar-brand" href="#" style="color:white;font-size:1.5rem;font-family:'Source Code Pro';">Mapped Data</a>
+        <a href="updatemapping" class="btn btn-secondary my-2 my-sm-0" type="submit" style="float:right" >Get Mapping</a>
+        <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" class="btn btn-secondary my-2 my-sm-0" type="submit" style="float:right">Logout</a></li>
+
+    </div>
+</nav>
+<div class="container jumbotron ">
+    <div class="card-columns d-flex">
+        <div class="getdata text-center" >
+            <label >GET MAPPED DATA</label><br>
+            <label >Enter Order ID : </label></br>
+            <label for="orderid"><input type="text" id="orderid" name="orderid" required></label></br>
+            <label >Enter User ID : </label></br>
+            <label for="userid"><input type="text" id="userid" name="userid"></label></br>
+            <button type="submit" onclick="getMappedData()">GET MAPPED DATA</button></br>
+            <br>
+            <button type="submit" onclick="getMasterJson()">GET MASTER JSON</button>
+
+        </div>
+        <div class="showData">
+            <label>REQUESTED DATA</label></br>
+            <pre id="viewdata" style="color:green; font-size: 10px; font-weight: bold;">requested Data</pre>
+
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+    function getMappedData(){
+        var orderid = document.getElementById("orderid").value;
+        var userid = document.getElementById("userid").value;
+        var view = document.getElementById("viewdata");
+        if(userid==null){
+            alert("required userId");
+        }
+        else {
+            let xhr = new XMLHttpRequest();
+            let url = 'http://localhost:9095/mapping/mapuser/';
+
+            xhr.open("GET", url + orderid+"/"+userid, false);
+            xhr.send(null);
+            if (xhr.status === 200) {
+                console.log(xhr.responseText);
+                alert(xhr.responseText);
+                view.innerHTML = JSON.stringify(JSON.parse(xhr.responseText), null, 4);
+            }
+        }
+    }
+    function getMasterJson(){
+        var orderid = document.getElementById("orderid").value;
+        var view = document.getElementById("viewdata");
+        let xhr = new XMLHttpRequest();
+        let url = 'http://localhost:9095/mappedData/getOrderDetails/';
+
+        xhr.open("GET", url+orderid, false);
+        xhr.send(null);
+        if (xhr.status===200){
+            console.log(xhr.responseText);
+            alert(xhr.responseText);
+            view.innerHTML =JSON.stringify(JSON.parse(xhr.responseText),null,4);
+        }
+    }
+</script>
+</html>

@@ -43,22 +43,27 @@ public class mappingController {
     mapping addMappingData(@RequestBody mapping maps){
         return mappingService.addMappings(maps);
     }
-
+    @PostMapping("/updateMapping")
+    mapping updateMappingData(@RequestBody mapping maps){
+        return mappingService.updateMapping(maps);
+    }
     @GetMapping("/mapuser/{orderid}/{userid}")
     String mapUsersData(@PathVariable int orderid,@PathVariable int userid){
         Orders orders;
         orders = orderService.findByOrderId(orderid);
         mapping map= mappingService.getMapping(userid);
-        JSONObject itemobject=new JSONObject();
+
         JSONObject custumerJson=new JSONObject();
         List<JSONObject> itemjsonlist=new ArrayList<JSONObject>();
         logger.debug(String.valueOf(orders.getItemId().size()));
         for(int i=0;i<orders.getItemId().size();i++){
+            JSONObject itemobject=new JSONObject();
             itemobject.put(map.getItemId(),orders.getItemId().get(i).getItemId());
             itemobject.put(map.getItemPrice(),orders.getItemId().get(i).getItemPrice());
             itemobject.put(map.getItemDiscount(),orders.getItemId().get(i).getItemDiscount());
             itemobject.put(map.getItemStatus(),orders.getItemId().get(i).getStatus());
             itemobject.put(map.getSkuId(),orders.getItemId().get(i).getSkuId());
+            itemobject.remove(null);
             itemjsonlist.add(itemobject);
         }
         custumerJson.put(map.getFirstName(),orders.getCustomerId().getFirstName());
@@ -68,6 +73,7 @@ public class mappingController {
         custumerJson.put(map.getPhoneNo(),orders.getCustomerId().getPhoneNumber());
         custumerJson.put(map.getPincode(),orders.getCustomerId().getPincode());
         custumerJson.put(map.getAddress(),orders.getCustomerId().getAddress());
+        custumerJson.remove(null);
         JSONObject orderjson = new JSONObject();
         orderjson.put(map.getOrderId(),orders.getOrderId());
         orderjson.put(map.getDate(),orders.getDate());
@@ -77,6 +83,7 @@ public class mappingController {
         orderjson.put(map.getStatus(),orders.getStatus());
         orderjson.put(map.getItem(),itemjsonlist);
         orderjson.put(map.getCustomer(),custumerJson);
+        orderjson.remove(null);
         return JSONObject.toJSONString(orderjson);
     }
 

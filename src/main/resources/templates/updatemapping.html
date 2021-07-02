@@ -90,7 +90,7 @@
                 viewdata.innerHTML = JSON.stringify(JSON.parse(xhr.responseText), null, 4);
             }
         }
-        else{
+        else if (action=="delete"){
             let xhr = new XMLHttpRequest();
             let url = 'http://localhost:9095/mapping/deleteMapping/'+user;
             xhr.open("GET", url, false);
@@ -112,7 +112,6 @@
         let xhr = new XMLHttpRequest();
         if (action=="add") {
             let url = 'http://localhost:9095/mapping/addMapping';
-            //let url = 'http://localhost:9090/user/adduser';
             xhr.withCredentials = true;
             xhr.open("POST", url, true);
             xhr.setRequestHeader("Content-type", "application/json");
@@ -125,15 +124,16 @@
             }
         }
         else if(action=="update"){
-            let url = 'http://localhost:9095/mapping/update/';
+            let url = 'http://localhost:9095/mapping/updateMapping';
+            xhr.withCredentials = true;
             xhr.open("POST", url, true);
             xhr.setRequestHeader("Content-type", "application/json");
             var data = JSON.stringify(Mapping);
-            xhr.send(data);
+            xhr.send(Mapping);
             if (xhr.status===200){
                 console.log(xhr.responseText);
                 alert(xhr.responseText);
-                viewdata.innerHTML =JSON.stringify(JSON.parse(xhr.responseText),null,4);
+
             }
         }
     }

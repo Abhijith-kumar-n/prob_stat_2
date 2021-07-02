@@ -30,4 +30,8 @@ public class MappingService {
         return mappingRepository.findByUserId(id);
 
     }
+    public mapping updateMapping(mapping maps){
+        mappingRepository.deleteByUserId(maps.getUserId());
+        return mappingRepository.save(maps);
+    }
 }

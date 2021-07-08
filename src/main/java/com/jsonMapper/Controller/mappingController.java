@@ -1,4 +1,4 @@
-package com.jsonMapper.Controller;
+/*package com.jsonMapper.Controller;
 
 
 import com.jsonMapper.model.Orders;
@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
+ */
+/*
 import java.util.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -57,24 +60,25 @@ public class mappingController {
 
         JSONObject custumerJson=new JSONObject();
         List<JSONObject> itemjsonlist=new ArrayList<JSONObject>();
-        logger.debug(String.valueOf(orders.getItemId().size()));
-        for(int i=0;i<orders.getItemId().size();i++){
+
+        logger.debug(String.valueOf(orders.getItem().size()));
+        for(int i=0;i<orders.getItem().size();i++){
             JSONObject itemobject=new JSONObject();
-            itemobject.put(map.getItemId(),orders.getItemId().get(i).getItemId());
-            itemobject.put(map.getItemPrice(),orders.getItemId().get(i).getItemPrice());
-            itemobject.put(map.getItemDiscount(),orders.getItemId().get(i).getItemDiscount());
-            itemobject.put(map.getItemStatus(),orders.getItemId().get(i).getStatus());
-            itemobject.put(map.getSkuId(),orders.getItemId().get(i).getSkuId());
+            itemobject.put(map.getItemId(),orders.getItem().get(i).getItemId());
+            itemobject.put(map.getItemPrice(),orders.getItem().get(i).getItemPrice());
+            itemobject.put(map.getItemDiscount(),orders.getItem().get(i).getItemDiscount());
+            itemobject.put(map.getItemStatus(),orders.getItem().get(i).getItemStatus());
+            itemobject.put(map.getSkuId(),orders.getItem().get(i).getSkuId());
             itemobject.remove(null);
             itemjsonlist.add(itemobject);
         }
-        custumerJson.put(map.getFirstName(),orders.getCustomerId().getFirstName());
-        custumerJson.put(map.getMiddleName(),orders.getCustomerId().getLastName());
-        custumerJson.put(map.getLastName(),orders.getCustomerId().getMiddleName());
-        custumerJson.put(map.getEmail(),orders.getCustomerId().getEmail());
-        custumerJson.put(map.getPhoneNo(),orders.getCustomerId().getPhoneNumber());
-        custumerJson.put(map.getPincode(),orders.getCustomerId().getPincode());
-        custumerJson.put(map.getAddress(),orders.getCustomerId().getAddress());
+        custumerJson.put(map.getFirstName(),orders.getCustomer().getFirstName());
+        custumerJson.put(map.getMiddleName(),orders.getCustomer().getLastName());
+        custumerJson.put(map.getLastName(),orders.getCustomer().getMiddleName());
+        custumerJson.put(map.getEmail(),orders.getCustomer().getEmail());
+        custumerJson.put(map.getPhoneNo(),orders.getCustomer().getPhoneNumber());
+        custumerJson.put(map.getPincode(),orders.getCustomer().getPincode());
+        custumerJson.put(map.getAddress(),orders.getCustomer().getAddress());
         custumerJson.remove(null);
         JSONObject orderjson = new JSONObject();
         orderjson.put(map.getOrderId(),orders.getOrderId());
@@ -92,5 +96,7 @@ public class mappingController {
 
 }
 
+
+ */
 
 

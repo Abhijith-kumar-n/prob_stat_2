@@ -29,7 +29,7 @@ public class Customer {
 
     private String address;
 
-    @OneToMany(mappedBy = "customerId")
+    @OneToMany(mappedBy = "customer")
     @JsonIgnore
     private List<Orders> orders;
 }

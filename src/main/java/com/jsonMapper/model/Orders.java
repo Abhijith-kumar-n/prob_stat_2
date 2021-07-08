@@ -1,6 +1,7 @@
 package com.jsonMapper.model;
 
 import lombok.Data;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,10 +24,10 @@ public class Orders {
     private int tenantId;
 
     @OneToMany(mappedBy = "orderId")
-    private List<Item> itemId;
+    private List<Item> item;
 
     @ManyToOne
     @JoinColumn(name = "customerId")
-    private Customer customerId;
+    private Customer customer;
 
 }

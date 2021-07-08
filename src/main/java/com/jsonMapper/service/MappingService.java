@@ -1,4 +1,4 @@
-package com.jsonMapper.service;
+/*package com.jsonMapper.service;
 
 
 import com.jsonMapper.Repository.MappingRepository;
@@ -35,3 +35,6 @@ public class MappingService {
         return mappingRepository.save(maps);
     }
 }
+
+
+ */

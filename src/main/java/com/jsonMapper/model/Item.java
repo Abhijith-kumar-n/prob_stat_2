@@ -17,7 +17,7 @@ public class Item {
 
     private int itemDiscount;
 
-    private String status;
+    private String itemStatus;
 
     private int skuId;
 

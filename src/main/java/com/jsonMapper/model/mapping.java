@@ -1,4 +1,4 @@
-package com.jsonMapper.model;
+/*package com.jsonMapper.model;
 
 
 import lombok.AccessLevel;
@@ -37,3 +37,6 @@ public class mapping{
     String pincode;
     String address;
 }
+
+
+ */

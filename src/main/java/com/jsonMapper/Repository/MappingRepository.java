@@ -1,4 +1,4 @@
-package com.jsonMapper.Repository;
+/*package com.jsonMapper.Repository;
 
 import com.jsonMapper.model.mapping;
 import org.springframework.data.mongodb.repository.MongoRepository;
@@ -10,3 +10,5 @@ public interface MappingRepository extends MongoRepository<mapping,Integer> {
     mapping findByUserId(int userId);
     mapping deleteByUserId(int UserId);
 }
+
+ */

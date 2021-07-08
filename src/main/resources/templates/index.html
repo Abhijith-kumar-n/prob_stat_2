@@ -1,8 +1,17 @@
 <html xmlns="http://www.w3.org/1999/html" xmlns:sec="http://www.w3.org/1999/xhtml">
 
+
 <head>
+    <title>index</title>
+</head>
+<script>
+    window.onload = function() {
+        window.location.href = "http://localhost:3000/";
+    }
+</script>
+<!--head>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <!--script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script-->
+
     <title>Customize Mapping</title>
     <style>
 
@@ -34,6 +43,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="background-color:darkblue">
     <div class="container-fluid" >
         <a class="navbar-brand" href="#" style="color:white;font-size:1.5rem;font-family:'Source Code Pro';">Mapped Data</a>
+        <a href="http://localhost:3000/" class="btn btn-secondary my-2 my-sm-0" type="submit" style="float:right" >Our New UI</a>
         <a href="updatemapping" class="btn btn-secondary my-2 my-sm-0" type="submit" style="float:right" >Get Mapping</a>
         <li sec:authorize="isAuthenticated()"><a th:href="@{/logout}" class="btn btn-secondary my-2 my-sm-0" type="submit" style="float:right">Logout</a></li>
 
@@ -47,6 +57,7 @@
             <label for="orderid"><input type="text" id="orderid" name="orderid" required></label></br>
             <label >Enter User ID : </label></br>
             <label for="userid"><input type="text" id="userid" name="userid"></label></br>
+            <p style="color:crimson;font-size:0.5rem;">"*if only fetching master json with out user mapping enter userid : 0"</p></br>
             <button type="submit" onclick="getMappedData()">GET MAPPED DATA</button></br>
             <br>
             <button type="submit" onclick="getMasterJson()">GET MASTER JSON</button>
@@ -95,5 +106,5 @@
             view.innerHTML =JSON.stringify(JSON.parse(xhr.responseText),null,4);
         }
     }
-</script>
+</script-->
 </html>

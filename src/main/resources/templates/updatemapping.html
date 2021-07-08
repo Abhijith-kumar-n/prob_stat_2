@@ -59,7 +59,7 @@
                 </br>
 
                 <label>User ID: </label>
-                <label><input type="text" id="userId"></label></br>
+                <label><input type="text" id="userId"></label><button type="submit" onclick="readAllMapping()">Get All Users</button></br>
                 <label for="deleteReadActions">Choose to delete/read:</label>
                 <select id="deleteReadActions" name="mapping action">
                     <option value="read">Read</option>
@@ -73,7 +73,20 @@
     </div>
 </body>
 <script type="text/javascript">
-
+    function readAllMapping(){
+        let url = 'http://localhost:9095/mapping/getAllMappings';
+        let xhr = new XMLHttpRequest();
+        xhr.withCredentials = true;
+        xhr.open("GET", url, false);
+        xhr.setRequestHeader("Content-type", "application/json");
+        xhr.send(null);
+        console.log(xhr.status);
+        if (xhr.status===200){
+            console.log(xhr.responseText);
+            alert(xhr.responseText);
+            viewdata.innerHTML = JSON.stringify(JSON.parse(xhr.responseText), null, 4);
+        }
+    }
     function deleteReadMapping(){
         var action=document.getElementById("deleteReadActions").value;
         var user=document.getElementById("userId").value;

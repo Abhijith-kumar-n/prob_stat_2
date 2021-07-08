@@ -29,6 +29,7 @@ public class mappingController {
     Logger logger = LoggerFactory.getLogger(mappingController.class);
     @GetMapping("/getAllMappings")
     public List<mapping> findAllMappings(){
+
         return mappingService.getAllMappings();
     }
     @GetMapping("/getmapping/{id}")
@@ -41,6 +42,7 @@ public class mappingController {
     }
     @PostMapping("/addMapping")
     mapping addMappingData(@RequestBody mapping maps){
+        System.out.println("in add mapping");
         return mappingService.addMappings(maps);
     }
     @PostMapping("/updateMapping")

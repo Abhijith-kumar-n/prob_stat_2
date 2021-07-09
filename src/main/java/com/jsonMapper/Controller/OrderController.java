@@ -40,6 +40,7 @@ public class OrderController {
     public Orders addDetails(@RequestBody Orders order){
 
         return orderService.addDetails(order);
+        //return order.toString();
 
     }
 

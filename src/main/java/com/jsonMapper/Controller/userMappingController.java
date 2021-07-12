@@ -91,8 +91,16 @@ public class userMappingController {
         //Parsing Json Object from JSON String
 
          */
+        JsonObject orderJsonObject=new JsonObject();
         JsonObject mapJsonObject = new JsonParser().parse(mapData).getAsJsonObject();
-        JsonObject orderJsonObject = new JsonParser().parse(masterJsonMappingsService.findMappingsByMasterId(orderId).getMasterJson()).getAsJsonObject();
+        if (masterJsonMappingsService.findMappingsByMasterId(orderId)!=null) {
+            orderJsonObject = new JsonParser().parse(masterJsonMappingsService.findMappingsByMasterId(orderId).getMasterJson()).getAsJsonObject();
+        }
+        else{
+            JSONObject error = new JSONObject();
+            error.put("error", "No Order with ID--> " + orderId);
+            return error.toJSONString();
+        }
         return userMappingService.mapUserMappingsToMaster(mapJsonObject, orderJsonObject);
     }
 

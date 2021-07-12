@@ -10,6 +10,6 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @FieldDefaults(level= AccessLevel.PRIVATE)
 @Document(collection = "MasterJson")
 public class masterJsonMappings {
-    Long masterId;
+    Long orderId;
     String masterJson;
 }

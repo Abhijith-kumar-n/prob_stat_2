@@ -40,10 +40,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.setPasswordEncoder(passwordEncoder());
         return auth;
     }
-	public void addCorsMappings(CorsRegistry registry) {
-		registry.addMapping("/**");
-	}
-
 	@Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authenticationProvider());
@@ -52,40 +48,32 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests().antMatchers(
-				 "/registration**",
-	                "/js/**",
-	                "/css/**",
-	                "/img/**",
-				"/**").permitAll()
-		.anyRequest().authenticated()
-		.and()
+		http.authorizeRequests()
+			.antMatchers(
+			 "/registration**",
+				"/js/**",
+				"/css/**",
+				"/img/**",
+					"/mappedData/**",
+					"/userMappings/**",
+			 		"/Master/**").permitAll()
+			.anyRequest().authenticated()
+			.and()
 		.formLogin()
-		.loginPage("/login")
-		.permitAll()
-		.and()
+			.loginPage("/users/login")
+			.permitAll()
+			.and()
+		.httpBasic()
+			.and()
+		.csrf()
+			.disable()
 		.logout()
-		.invalidateHttpSession(false)
+		.invalidateHttpSession(true)
 		.clearAuthentication(true)
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.logoutSuccessUrl("/login?logout")
-		.permitAll();
+		.logoutSuccessUrl("/login?logout");
 		http.csrf().disable();
 	}
-	/*
 
-	@Bean
-	CorsConfigurationSource corsConfigurationSource() {
-		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000/"));
-		configuration.setAllowedMethods(Arrays.asList("GET","POST"));
-		configuration.setAllowedHeaders(Arrays.asList("*"));
-		configuration.setAllowCredentials(true);
-		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-		source.registerCorsConfiguration("/**", configuration);
-		return source;
-	}
-
-	 */
 
 }

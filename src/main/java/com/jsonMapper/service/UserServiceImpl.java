@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.stream.Collectors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -23,7 +25,8 @@ import com.jsonMapper.model.User;
 public class UserServiceImpl implements UserService{
 
 	private UserRepository userRepository;
-	
+
+	public Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
 	
@@ -34,6 +37,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User save(UserRegistrationDto registrationDto) {
+		logger.info("saving User "+registrationDto.toString());
 		User user = new User(registrationDto.getUserName(), 
 				registrationDto.getPhoneNo(), registrationDto.getEmail(),
 				passwordEncoder.encode(registrationDto.getPassword()), Arrays.asList(new Role("ROLE_USER")));
@@ -43,11 +47,12 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-	
+		logger.info("getting user by userId : "+username);
 		User user = userRepository.findByUserName(username);
 		if(user == null) {
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
+		logger.info("valid user");
 		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));		
 	}
 	

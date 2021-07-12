@@ -1,16 +1,13 @@
 package com.jsonMapper.Controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.jsonMapper.dto.UserRegistrationDto;
 import com.jsonMapper.service.UserService;
 
 
-
+@CrossOrigin(origins = "*",allowedHeaders = "*")
 @Controller
 @RequestMapping("/registration")
 public class UserRegistrationController {
@@ -33,7 +30,7 @@ public class UserRegistrationController {
 	}
 	
 	@PostMapping
-	public String registerUserAccount(@ModelAttribute("user") UserRegistrationDto registrationDto) {
+	public String registerUserAccount(@RequestBody UserRegistrationDto registrationDto) {
 		userService.save(registrationDto);
 		return "redirect:/registration?success";
 	}

@@ -34,7 +34,12 @@ public class userMappingController {
     @GetMapping("/GetUserMapping/{userId}")
     public String getUserMapping(@PathVariable Long userId) {
         //Get User Mappings from UserId
-        return userMappingService.getUserMapping(userId);
+        try {
+            return userMappingService.getUserMapping(userId);
+        }
+        catch (NullPointerException nullPointerException){
+            return null;
+        }
     }
     @GetMapping("/GetAllUserMappings")
     public List<userMapping> getAllUserMappings(){
@@ -51,8 +56,12 @@ public class userMappingController {
     }
     @PostMapping("/AddMapping")
     public String addMapping(@RequestBody userMapping userMap){
-
-        return userMappingService.addMappings(userMap);
+        if(getUserMapping(userMap.getUserId())==null) {
+            return userMappingService.addMappings(userMap);
+        }
+        else{
+            return "UserId already present";
+        }
     }
     @PostMapping("/UpdateMapping")
     public String updateMapping(@RequestBody userMapping userMap){
@@ -63,35 +72,8 @@ public class userMappingController {
 
         //Getting User Mappings from MongoDb with userId
         String mapData = userMappingService.getUserMapping(userId);
-        /*
-        //Getting Order Details from MySQL with OrderId
-        Orders orderData = orderRepository.findByOrderId(orderId);
 
-        //Checking if the Order Details for orderId valid or Not
-        try {
-            System.out.println(orderData.equals(null));
-        }
-        // If Order Details for orderId is null returning error information to FrontEnd
-        catch (NullPointerException nullPointerException) {
-            JSONObject error = new JSONObject();
-            error.put("error", "NoOrderID--> " + orderId);
-            return error.toJSONString();
-        }
-
-        String orderJsonStr = "";
-        //Creating JsonString from Java Object
-        ObjectMapper Obj = new ObjectMapper();
-        try {
-            orderJsonStr = Obj.writeValueAsString(orderData);
-            System.out.println("JSON --> " + orderJsonStr);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //Parsing Json Object from JSON String
-
-         */
-        JsonObject orderJsonObject=new JsonObject();
+        JsonObject orderJsonObject;//=new JsonObject();
         JsonObject mapJsonObject = new JsonParser().parse(mapData).getAsJsonObject();
         if (masterJsonMappingsService.findMappingsByMasterId(orderId)!=null) {
             orderJsonObject = new JsonParser().parse(masterJsonMappingsService.findMappingsByMasterId(orderId).getMasterJson()).getAsJsonObject();

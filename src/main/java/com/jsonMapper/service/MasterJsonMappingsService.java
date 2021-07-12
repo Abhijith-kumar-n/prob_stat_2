@@ -19,11 +19,11 @@ public class MasterJsonMappingsService {
     }
 
     public masterJsonMappings findMappingsByMasterId(Long masterId){
-        return masterJsonMappingsRepository.findByMasterId(masterId);
+        return masterJsonMappingsRepository.findByOrderId(masterId);
     }
 
     public void deleteMappingsByMasterId(Long masterId){
-        masterJsonMappingsRepository.deleteByMasterId(masterId);
+        masterJsonMappingsRepository.deleteByOrderId(masterId);
     }
 
     public List<masterJsonMappings> findAllMasters() {

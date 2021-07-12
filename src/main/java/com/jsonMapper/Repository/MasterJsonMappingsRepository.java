@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface MasterJsonMappingsRepository extends MongoRepository<masterJsonMappings,Long> {
-    masterJsonMappings findByMasterId(Long masterId);
-    void deleteByMasterId(Long masterId);
+    masterJsonMappings findByOrderId(Long masterId);
+    void deleteByOrderId(Long masterId);
 
 }

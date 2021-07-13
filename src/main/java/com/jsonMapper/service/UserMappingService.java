@@ -55,6 +55,7 @@ public class UserMappingService {
     public List<userMapping> getAllUserMappings() {
         return userMappingRepository.findAll();
     }
+
     public String mapUserMappingsToMaster(JsonObject mapJsonObject,JsonObject orderJsonObject){
         //Initializing new JSON Object for O/p
         JSONObject outputJson = new JSONObject();
@@ -87,7 +88,12 @@ public class UserMappingService {
                                     //subobjects.put(mapJsonObject.get(indexobject), object.get(indexobject));
                                     System.out.println(object.get(indexobject));
                                 } else {
-                                    subobjects.put(mapJsonObject.get(indexobject).getAsString(), object.get(indexobject));
+                                    try {
+                                        subobjects.put(mapJsonObject.get(indexobject).getAsString(),object.get(indexobject).getAsJsonPrimitive().getAsInt());
+                                    }
+                                    catch(NumberFormatException numberFormatException){
+                                        subobjects.put(mapJsonObject.get(indexobject).getAsString(),object.get(indexobject).getAsJsonPrimitive().getAsString());
+                                    }
                                 }
                             } catch (NullPointerException nullPointerException) {
                                 System.err.println(nullPointerException);
@@ -116,6 +122,12 @@ public class UserMappingService {
                                 //jsonobject.put(mapJsonObject.get(indexobject), orderJsonObject.get(x).getAsJsonObject().get(indexobject));
                                 System.out.println(orderJsonObject.get(x).getAsJsonObject().get(indexobject));
                             } else {
+                                if(orderJsonObject.get(x).getAsJsonObject().get(indexobject).getAsJsonPrimitive().isNumber()) {
+                                    jsonobject.put(mapJsonObject.get(indexobject).getAsString(), Math.round(orderJsonObject.get(x).getAsJsonObject().get(indexobject).getAsFloat()));
+                                }
+                                else {
+                                    jsonobject.put(mapJsonObject.get(indexobject).getAsString(),orderJsonObject.get(x).getAsJsonObject().get(indexobject).getAsString());
+                                }
                                 jsonobject.put(mapJsonObject.get(indexobject).getAsString(), orderJsonObject.get(x).getAsJsonObject().get(indexobject));
                             }
                         } catch (NullPointerException nullPointerException) {
@@ -136,7 +148,7 @@ public class UserMappingService {
                 try {
                     if (mapJsonObject.get(x).isJsonNull() != true) {
                         if (orderJsonObject.get(x).getAsJsonPrimitive().isNumber()){
-                            outputJson.put(mapJsonObject.get(x).getAsString(), orderJsonObject.get(x).getAsInt());
+                            outputJson.put(mapJsonObject.get(x).getAsString(),Math.round( orderJsonObject.get(x).getAsFloat()));
                         }
                         else{
                             outputJson.put(mapJsonObject.get(x).getAsString(), orderJsonObject.get(x).getAsString());

@@ -44,7 +44,20 @@ public class UserServiceImpl implements UserService{
 		
 		return userRepository.save(user);
 	}
+	public Long findUserByUsername(String username){
+		return userRepository.findByUserName(username).getId();
+	}
 
+	public Boolean isUserEnabled(String username){
+		logger.info("getting user by userId : "+username);
+		User user = userRepository.findByUserName(username);
+		if(user == null) {
+			return false;
+		}
+		logger.info("valid user");
+		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), mapRolesToAuthorities(user.getRoles())).isEnabled();
+
+	}
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		logger.info("getting user by userId : "+username);
@@ -53,7 +66,7 @@ public class UserServiceImpl implements UserService{
 			throw new UsernameNotFoundException("Invalid username or password.");
 		}
 		logger.info("valid user");
-		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));		
+		return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), mapRolesToAuthorities(user.getRoles()));
 	}
 	
 	private Collection<? extends GrantedAuthority> mapRolesToAuthorities(Collection<Role> roles){

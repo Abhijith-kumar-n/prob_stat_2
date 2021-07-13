@@ -23,9 +23,14 @@ public class masterJsonMappingsController {
     public masterJsonMappings saveMaster(@RequestBody masterJsonMappings masterMap){
         return masterJsonMappingsService.saveMasterMappings(masterMap);
     }
-    @GetMapping("/FindMaster/{masterId}")
-    public String findMaster(@PathVariable Long masterId){
-        return masterJsonMappingsService.findMappingsByMasterId(masterId).getMasterJson();
+    @GetMapping("/FindMaster/{orderId}")
+    public String findMaster(@PathVariable Long orderId){
+        try {
+            return masterJsonMappingsService.findMappingsByMasterId(orderId).getMasterJson();
+        }
+        catch (NullPointerException nullPointerException){
+            return "Invalid orderId";
+        }
     }
 
     @GetMapping("/FindAllMasters")

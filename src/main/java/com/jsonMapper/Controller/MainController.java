@@ -19,11 +19,7 @@ import java.lang.reflect.InvocationTargetException;
 @RestController
 @RequestMapping(value="/users")
 public class MainController {
-	
-	/*@GetMapping("/login")
-	public String login() {
-		return "login";
-	}*/
+
 	@Autowired
 	private UserService userService;
 
@@ -34,7 +30,6 @@ public class MainController {
 
 	@PostMapping("/login")
 	public JSONObject loginUser(@RequestBody UserLoginDto userLoginDto){
-		//System.out.println(userService.loadUserByUsername(userLoginDto.getUserName()));
 		JSONObject jsonObject=new JSONObject();
 		jsonObject.put("authenticated",userService.isUserEnabled(userLoginDto.getUserName()));
 		try {

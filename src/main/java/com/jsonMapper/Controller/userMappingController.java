@@ -1,11 +1,9 @@
 package com.jsonMapper.Controller;
 
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.jsonMapper.Repository.OrderRepository;
-import com.jsonMapper.model.Orders;
 import com.jsonMapper.model.userMapping;
 import com.jsonMapper.service.MasterJsonMappingsService;
 import com.jsonMapper.service.UserMappingService;
@@ -15,7 +13,6 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.IOException;
 import java.util.List;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")

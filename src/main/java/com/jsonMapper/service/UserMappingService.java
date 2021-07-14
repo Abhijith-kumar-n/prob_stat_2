@@ -13,23 +13,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-
-
-import com.google.gson.JsonParser;
-import com.jsonMapper.Repository.OrderRepository;
-import com.jsonMapper.service.UserService;
-import lombok.AccessLevel;
-import lombok.experimental.FieldDefaults;
-import org.json.simple.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
 @Service
 public class UserMappingService {
     @Autowired

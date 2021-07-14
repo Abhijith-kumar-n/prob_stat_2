@@ -20,8 +20,13 @@ public class masterJsonMappingsController {
     private MasterJsonMappingsService masterJsonMappingsService;
 
     @PostMapping("/AddMaster")
-    public masterJsonMappings saveMaster(@RequestBody masterJsonMappings masterMap){
-        return masterJsonMappingsService.saveMasterMappings(masterMap);
+    public String saveMaster(@RequestBody masterJsonMappings masterMap){
+        if(masterJsonMappingsService.isMasterPresent(masterMap.getOrderId())){
+            return "Present";
+        }
+        else {
+            return masterJsonMappingsService.saveMasterMappings(masterMap).toString();
+        }
     }
     @GetMapping("/FindMaster/{orderId}")
     public String findMaster(@PathVariable Long orderId){

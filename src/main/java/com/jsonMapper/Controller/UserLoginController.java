@@ -18,7 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 @CrossOrigin(origins="*",allowedHeaders="*")
 @RestController
 @RequestMapping(value="/users")
-public class MainController {
+public class UserLoginController {
 
 	@Autowired
 	private UserService userService;

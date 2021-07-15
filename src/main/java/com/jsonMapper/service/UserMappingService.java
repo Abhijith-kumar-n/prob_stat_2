@@ -7,7 +7,9 @@ import com.jsonMapper.Repository.UserMappingRepository;
 import com.jsonMapper.model.userMapping;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -24,7 +26,12 @@ public class UserMappingService {
 
     public String addMappings(userMapping userMap){
         userMappingRepository.save(userMap);
-        return userMappingRepository.findByUserId(userMap.getUserId()).getMapping();
+        try {
+            return userMappingRepository.findByUserId(userMap.getUserId()).getMapping();
+        }
+        catch (NullPointerException nullPointerException){
+            return "invalid Request";
+        }
     }
 
     public void deleteMappings(Long userId){
@@ -32,13 +39,22 @@ public class UserMappingService {
     }
     public String updateMappings(userMapping userMap){
         userMappingRepository.deleteByUserId(userMap.getUserId());
-        return userMappingRepository.save(userMap).getMapping();
+        try {
+            return userMappingRepository.save(userMap).getMapping();
+        }
+        catch (NullPointerException nullPointerException){
+            return "invalid Request";
+        }
     }
 
     public List<userMapping> getAllUserMappings() {
         return userMappingRepository.findAll();
     }
 
+
+    //Custom JSON Mapping Controller Algo
+    //I/P : Mappings (JSON Object), Master Object (JSON Object)
+    //O/P : Master Object mapped to user mappings (stringified JSON Object)
     public String mapUserMappingsToMaster(JsonObject mapJsonObject,JsonObject orderJsonObject){
         //Initializing new JSON Object for O/p
         JSONObject outputJson = new JSONObject();

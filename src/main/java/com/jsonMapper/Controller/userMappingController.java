@@ -3,7 +3,6 @@ package com.jsonMapper.Controller;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.jsonMapper.Repository.OrderRepository;
 import com.jsonMapper.model.userMapping;
 import com.jsonMapper.service.MasterJsonMappingsService;
 import com.jsonMapper.service.UserMappingService;
@@ -24,8 +23,7 @@ public class userMappingController {
 
     @Autowired
     private UserMappingService userMappingService;
-    @Autowired
-    private OrderRepository orderRepository;
+
     @Autowired
     private MasterJsonMappingsService masterJsonMappingsService;
     @GetMapping("/GetUserMapping/{userId}")

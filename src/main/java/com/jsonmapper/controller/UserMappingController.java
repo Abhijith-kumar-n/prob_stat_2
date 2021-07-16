@@ -78,7 +78,7 @@ public class UserMappingController {
             error.put("error", "No Order with ID--> " + orderId);
             return error.toJSONString();
         }
-        return userMappingService.mapUserMappingsToMaster(mapJsonObject, orderJsonObject);
+        return userMappingService.mapUserMappingsToMaster(mapJsonObject, orderJsonObject).toJSONString();
     }
 
 }

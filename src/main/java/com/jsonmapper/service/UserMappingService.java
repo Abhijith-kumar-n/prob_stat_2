@@ -56,7 +56,7 @@ public class UserMappingService {
     //Custom JSON Mapping Controller Algo
     //I/P : Mappings (JSON Object), Master Object (JSON Object)
     //O/P : Master Object mapped to user mappings (stringified JSON Object)
-    public String mapUserMappingsToMaster(JsonObject mapJsonObject,JsonObject orderJsonObject){
+    public JSONObject mapUserMappingsToMaster(JsonObject mapJsonObject,JsonObject orderJsonObject){
         //Initializing new JSON Object for O/p
         JSONObject outputJson = new JSONObject();
 
@@ -79,21 +79,7 @@ public class UserMappingService {
                     //on Null Values Skipping the addition of Mapped Data
                     while (objectsList.hasNext()) {
                         JsonObject object = objectsList.next().getAsJsonObject();
-                        JSONObject subobjects = new JSONObject();
-                        Set<String> subobjectKeys = object.keySet();
-                        for (String indexobject : subobjectKeys) {
-                            try {
-                                if (!mapJsonObject.get(indexobject).isJsonNull()) {
-                                    subobjects.put(mapJsonObject.get(indexobject).getAsString(),object.get(indexobject).getAsJsonPrimitive().getAsInt());
-
-                                }
-                            } catch (NullPointerException nullPointerException) {
-                                logger.warn(String.valueOf(nullPointerException));
-                            }
-                            catch(NumberFormatException numberFormatException){
-                                subobjects.put(mapJsonObject.get(indexobject).getAsString(),object.get(indexobject).getAsJsonPrimitive().getAsString());
-                            }
-                        }
+                        JSONObject subobjects = mapUserMappingsToMaster(mapJsonObject,object);
                         if (!subobjects.isEmpty()) {
                             itemjsonlist.add(subobjects);
                         }
@@ -109,24 +95,7 @@ public class UserMappingService {
                     //If value is JSON Object
                     //Adding (value of MapObject(orderKey):value of OrdersObject(orderKey))
                     //on Null Values Skipping the addition of Mapped Data
-                    JSONObject jsonobject = new JSONObject();
-                    Set<String> subobjectKeys = orderJsonObject.get(x).getAsJsonObject().keySet();
-                    for (String indexobject : subobjectKeys) {
-
-                        try {
-                            if (!mapJsonObject.get(indexobject).isJsonNull()) {
-                                if(orderJsonObject.get(x).getAsJsonObject().get(indexobject).getAsJsonPrimitive().isNumber()) {
-                                    jsonobject.put(mapJsonObject.get(indexobject).getAsString(), Math.round(orderJsonObject.get(x).getAsJsonObject().get(indexobject).getAsFloat()));
-                                }
-                                else {
-                                    jsonobject.put(mapJsonObject.get(indexobject).getAsString(),orderJsonObject.get(x).getAsJsonObject().get(indexobject).getAsString());
-                                }
-                                jsonobject.put(mapJsonObject.get(indexobject).getAsString(), orderJsonObject.get(x).getAsJsonObject().get(indexobject));
-                            }
-                        } catch (NullPointerException nullPointerException) {
-                            logger.warn(nullPointerException.toString());
-                        }
-                    }
+                    JSONObject jsonobject=mapUserMappingsToMaster(mapJsonObject,orderJsonObject.get(x).getAsJsonObject());
                     try {
                         if ((!mapJsonObject.get(x).isJsonNull())&&(!jsonobject.isEmpty())) {
                             outputJson.put(mapJsonObject.get(x).getAsString(), jsonobject);
@@ -152,6 +121,6 @@ public class UserMappingService {
                 }
             }
         }
-        return outputJson.toJSONString();
+        return outputJson;
     }
 }

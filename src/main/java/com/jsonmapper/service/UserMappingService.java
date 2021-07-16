@@ -94,10 +94,12 @@ public class UserMappingService {
                                 subobjects.put(mapJsonObject.get(indexobject).getAsString(),object.get(indexobject).getAsJsonPrimitive().getAsString());
                             }
                         }
-                        itemjsonlist.add(subobjects);
+                        if (!subobjects.isEmpty()) {
+                            itemjsonlist.add(subobjects);
+                        }
                     }
                     try {
-                        if (!mapJsonObject.get(x).isJsonNull()) {
+                        if ((!mapJsonObject.get(x).isJsonNull())&&(!itemjsonlist.isEmpty())) {
                             outputJson.put(mapJsonObject.get(x).getAsString(), itemjsonlist);
                         }
                     } catch (NullPointerException nullPointerException) {
@@ -126,7 +128,7 @@ public class UserMappingService {
                         }
                     }
                     try {
-                        if (!mapJsonObject.get(x).isJsonNull()) {
+                        if ((!mapJsonObject.get(x).isJsonNull())&&(!jsonobject.isEmpty())) {
                             outputJson.put(mapJsonObject.get(x).getAsString(), jsonobject);
                         }
                     } catch (NullPointerException nullPointerException) {

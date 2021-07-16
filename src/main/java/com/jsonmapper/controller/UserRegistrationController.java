@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.*;
 import com.jsonmapper.dto.UserRegistrationDto;
 import com.jsonmapper.service.UserService;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+
 
 @CrossOrigin(origins = "*",allowedHeaders = "*")
-@Controller
+@RestController
 @RequestMapping("/registration")
 public class UserRegistrationController {
 
@@ -24,14 +26,19 @@ public class UserRegistrationController {
         return new UserRegistrationDto();
     }
 	
-	@GetMapping
-	public String showRegistrationForm() {
-		return "registration";
-	}
+//	@GetMapping
+//	public String showRegistrationForm() {
+//		return "registration";
+//	}
 	
 	@PostMapping
 	public String registerUserAccount(@RequestBody UserRegistrationDto registrationDto) {
-		userService.save(registrationDto);
-		return "redirect:/registration?success";
+		try {
+			userService.save(registrationDto);
+			return "Registered Successfully";
+		}
+		catch (Exception exception){
+			return "User Name "+registrationDto.getUserName()+" Already in use ";
+		}
 	}
 }

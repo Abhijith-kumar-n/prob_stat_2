@@ -41,7 +41,7 @@ public class UserMappingController {
         //Get All User Mappings
         return userMappingService.getAllUserMappings();
     }
-    @GetMapping("/DeleteUserMappings/{userId}")
+    @DeleteMapping("/DeleteUserMappings/{userId}")
     public String deleteUserMappings(@PathVariable Long userId){
         //DELETE User Mappings from UserId
         String userMap=userMappingService.getUserMapping(userId);
@@ -58,7 +58,7 @@ public class UserMappingController {
             return "UserId already present";
         }
     }
-    @PostMapping("/UpdateMapping")
+    @PutMapping("/UpdateMapping")
     public String updateMapping(@RequestBody UserMapping userMap){
         return userMappingService.updateMappings(userMap);
     }
@@ -67,7 +67,9 @@ public class UserMappingController {
 
         //Getting User Mappings from MongoDb with userId
         String mapData = userMappingService.getUserMapping(userId);
-
+        if (mapData == null){
+            return "Please Add User Mappings ";
+        }
         JsonObject orderJsonObject;
         JsonObject mapJsonObject = new JsonParser().parse(mapData).getAsJsonObject();
         if (masterJsonMappingsService.findMappingsByMasterId(orderId)!=null) {

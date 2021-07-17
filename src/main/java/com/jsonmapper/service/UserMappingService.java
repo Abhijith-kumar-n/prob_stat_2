@@ -22,7 +22,12 @@ public class UserMappingService {
 
     static final Logger logger= LoggerFactory.getLogger(UserMappingService.class);
     public String getUserMapping(Long userId) {
-        return userMappingRepository.findByUserId(userId).getMapping();
+        try {
+            return userMappingRepository.findByUserId(userId).getMapping();
+        }
+        catch (NullPointerException nullPointerException){
+            return null;
+        }
     }
 
     public String addMappings(UserMapping userMap){
